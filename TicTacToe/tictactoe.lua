@@ -1,3 +1,4 @@
+local ai = require("TicTacToe/ai")
 -- Draw Board
 local function drawBoard(gameTable)
     os.execute("clear") -- os.execute("cls") if windows
@@ -36,14 +37,7 @@ end
 
 -- AI Turn
 local function aiTurn(gameTable, aiSymbol)
-    local aiChoice = nil
-    while true do
-        aiChoice = math.random(9)
-        if gameTable[aiChoice] == " " then
-            gameTable[aiChoice] = aiSymbol
-            break
-        end
-    end
+    gameTable[ai.bestMove(gameTable, aiSymbol)] = aiSymbol
 end
 
 -- Check Game Condition
