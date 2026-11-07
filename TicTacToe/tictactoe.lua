@@ -3,9 +3,12 @@ local function drawBoard(gameTable)
     os.execute("clear") -- os.execute("cls") if windows
     for index, value in ipairs(gameTable) do
         if index % 3 ~= 0 then
-            io.write(value .. " | ")
+            io.write(" "..value .. " |")
         else
-            io.write(value .. "\n")
+            io.write(" "..value .. "\n")
+            if index ~= 9 then
+               io.write("---+---+---\n") 
+            end
         end
     end
 end
