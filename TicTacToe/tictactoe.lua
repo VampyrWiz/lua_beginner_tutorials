@@ -29,8 +29,6 @@ local function playerTurn(gameTable, playerSymbol)
             print("Invalid Choice. Please enter your choice again.")
         end
     end
-
-    return gameTable
 end
 
 -- AI Turn
@@ -43,8 +41,6 @@ local function aiTurn(gameTable, aiSymbol)
             break
         end
     end
-
-    return gameTable
 end
 
 -- Check Game Condition
@@ -120,9 +116,9 @@ if singlePlayer then
     end
     while not endGame do
         if turn % 2 == 0 then
-            gameTable = playerTurn(gameTable, playerSymbol)
+            playerTurn(gameTable, playerSymbol)
         else
-            gameTable = aiTurn(gameTable, aiSymbol)
+            aiTurn(gameTable, aiSymbol)
         end
         turn = turn + 1
         local condition, victor = checkGameCondition(gameTable)
@@ -151,9 +147,9 @@ else
     end
     while not endGame do
         if turn % 2 == 0 then
-            gameTable = playerTurn(gameTable, playerSymbol1)
+            playerTurn(gameTable, playerSymbol1)
         else
-            gameTable = playerTurn(gameTable, playerSymbol2)
+            playerTurn(gameTable, playerSymbol2)
         end
         turn = turn + 1
         local condition, victor = checkGameCondition(gameTable)
@@ -169,7 +165,4 @@ else
     end
 end
 
-print("Enter any key to continue: ")
-if io.read(1) then
-    goto newGame
-end
+goto newGame
