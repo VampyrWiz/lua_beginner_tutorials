@@ -36,8 +36,20 @@ local function playerTurn(gameTable, playerSymbol)
 end
 
 -- AI Turn
-local function aiTurn(gameTable, aiSymbol)
-    gameTable[ai.bestMove(gameTable, aiSymbol)] = aiSymbol
+local function aiTurn(gameTable, aiSymbol, gameChoice)
+    local hardChance = {0.25, 0.5, 0.75, 1}
+    local randomChance = math.random()
+    if randomChance > hardChance[gameChoice] then
+        while true do
+            local aiChoice = math.random(1, 9)
+            if gameTable[aiChoice] == " " then
+                gameTable[aiChoice] = aiSymbol
+                break
+            end
+        end
+    else
+        gameTable[ai.bestMove(gameTable, aiSymbol)] = aiSymbol
+    end
 end
 
 -- Check Game Condition
@@ -104,6 +116,16 @@ end
 local gameTable = { " ", " ", " ", " ", " ", " ", " ", " ", " " }
 local endGame = false
 if singlePlayer then
+    print("Enter the choice for mode:")
+    print("1 for Easy Mode")
+    print("2 for Medium Mode")
+    print("3 for Hard Mode")
+    print("4 for Impossible Mode")
+    print("Any for Exit")
+    local gameChoice = io.read("*n")
+    if choice < 1 or choice > 4 then
+        os.exit(0)
+    end
     drawBoard(gameTable)
     local turn = math.random(2)
     local playerSymbol, aiSymbol = 'O', 'X'
@@ -115,7 +137,7 @@ if singlePlayer then
         if turn % 2 == 0 then
             playerTurn(gameTable, playerSymbol)
         else
-            aiTurn(gameTable, aiSymbol)
+            aiTurn(gameTable, aiSymbol, gameChoice)
         end
         turn = turn + 1
         local condition, victor = checkGameCondition(gameTable)
