@@ -53,3 +53,11 @@ for i=1,10 do
         print(i)
     end
 end
+
+-- Conditional Statement
+local flag = true
+local max = flag and 5 or 10
+print(max)
+flag = false
+max = flag and 5 or 10
+print(max)
